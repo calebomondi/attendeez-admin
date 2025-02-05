@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-//import { createClient } from '@supabase/supabase-js';
+import apiService from '../../services/apiService';
 
 interface FormData {
   dataType: string;
@@ -29,7 +29,7 @@ const CSVUploadForm: React.FC = () => {
     'YOUR_SUPABASE_ANON_KEY'
   );
   */
-  const dataTypes = ['teacher', 'student', 'timetable'];
+  const dataTypes = ['teachers', 'students', 'timetable'];
   const semesters = ['1.1', '1.2', '2.1', '2.2', '3.1', '3.2', '4.1', '4.2'];
 
   const handleInputChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -101,13 +101,27 @@ const CSVUploadForm: React.FC = () => {
         parsedData.forEach((row, index) => {
         console.log(`Row ${index + 1}:`, row);
         });
-
+        
         // You can add a confirmation step here if you want
         const shouldProceed = window.confirm('Would you like to proceed with the upload?');
             if (!shouldProceed) {
                 setLoading(false);
             return;
         }
+
+        if (dataType.match("teachers")) {
+            const res = await apiService.uploadTeachers(parsedData);
+            console.log('Response:', res);
+            setSuccess('Teachers data uploaded successfully!');
+        }
+
+        if (dataType.match("students")) {
+          const res = await apiService.uploadStudents(parsedData,semester);
+          const resp = await apiService.enroll(parsedData, courseName);
+          console.log('Response:', res, 'Response 2: ', resp);
+          setSuccess('Students data uploaded successfully!');
+      }
+            
       /*
       const { error: uploadError } = await supabase
         .from(dataType)
