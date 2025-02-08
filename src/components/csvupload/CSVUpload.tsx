@@ -118,21 +118,10 @@ const CSVUploadForm: React.FC = () => {
         if (dataType.match("students")) {
           const res = await apiService.uploadStudents(parsedData,semester);
           const resp = await apiService.enroll(parsedData, courseName);
-          console.log('Response:', res, 'Response 2: ', resp);
+          console.log('Students:', res, 'enrollment:', resp);
           setSuccess('Students data uploaded successfully!');
       }
-            
-      /*
-      const { error: uploadError } = await supabase
-        .from(dataType)
-        .insert(parsedData.map(row => ({
-          ...row,
-          semester,
-          course_name: courseName
-        })));
-
-      if (uploadError) throw uploadError;
-        */
+    
       setSuccess('Data uploaded successfully!');
       // Reset form
       setFormData({

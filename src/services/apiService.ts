@@ -63,7 +63,7 @@ const apiService = {
       
       return response.data;
     } catch (error) {
-      console.error('Error in uploadTeachers:', error);
+      console.error('Error in enrolling students:', error);
       throw error;
     }
   },
