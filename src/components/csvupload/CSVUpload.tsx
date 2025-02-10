@@ -116,9 +116,9 @@ const CSVUploadForm: React.FC = () => {
         }
 
         if (dataType.match("students")) {
-          const res = await apiService.uploadStudents(parsedData,semester);
-          const resp = await apiService.enroll(parsedData, courseName);
-          console.log('Students:', res, 'enrollment:', resp);
+          //const res = await apiService.uploadStudents(parsedData,semester);
+          //const resp = await apiService.enroll(parsedData, courseName);
+          //console.log('Students:', res, 'enrollment:', resp);
           setSuccess('Students data uploaded successfully!');
       }
     
